@@ -4,71 +4,79 @@ import { TableName } from './enums.js';
 import express, { json } from 'express';
 import { createRecord, getSingleRecord, getAllRecords, deleteRecord, updateRecord } from './resources.js';
 
-const app = express();
 
-app.use(express.json());
+class Server {
+    app = express();
+    apiV1 = express.Router();
 
+    constructor() {
+        this.app.use(express.json());
+        this.app.use('/api/v1', this.apiV1);
 
-app.post('/users', createRecord(TableName.USERS));
-app.get('/users/:id', getSingleRecord(TableName.USERS));
-app.get('/users', getAllRecords(TableName.USERS));
-app.delete('/users/:id', deleteRecord(TableName.USERS));
-app.put('/users/:id', updateRecord(TableName.USERS));
+        this.defineRoutes();
+        
+        this.app.listen(3000, () =>{
+            console.log('server start');
+        })
 
-app.post('/games', createRecord(TableName.GAMES));
-app.get('/games/:id', getSingleRecord(TableName.GAMES));
-app.get('/games', getAllRecords(TableName.GAMES));
-app.delete('/games/:id', deleteRecord(TableName.GAMES));
-app.put('/games/:id', updateRecord(TableName.GAMES));
+    }
 
-app.post('/featureds', createRecord(TableName.FEATUREDS));
-app.get('/featureds/:id', getSingleRecord(TableName.FEATUREDS));
-app.get('/featureds', getAllRecords(TableName.FEATUREDS));
-app.delete('/featureds/:id', deleteRecord(TableName.FEATUREDS));
-app.put('/featureds/:id', updateRecord(TableName.FEATUREDS));
+    
 
-app.post('/teams', createRecord(TableName.TEAMS));
-app.get('/teams/:id', getSingleRecord(TableName.TEAMS));
-app.get('/teams', getAllRecords(TableName.TEAMS));
-app.delete('/teams/:id', deleteRecord(TableName.TEAMS));
-app.put('/teams/:id', updateRecord(TableName.TEAMS));
+    defineRoutes() {
+        this.apiV1.post('/users', createRecord(TableName.USERS));
+        this.apiV1.get('/users/:id', getSingleRecord(TableName.USERS));
+        this.apiV1.get('/users', getAllRecords(TableName.USERS));
+        this.apiV1.delete('/users/:id', deleteRecord(TableName.USERS));
+        this.apiV1.put('/users/:id', updateRecord(TableName.USERS));
 
-app.post('/cards', createRecord(TableName.CARDS));
-app.get('/cards/:id', getSingleRecord(TableName.CARDS));
-app.get('/cards', getAllRecords(TableName.CARDS));
-app.delete('/cards/:id', deleteRecord(TableName.CARDS));
-app.put('/cards/:id', updateRecord(TableName.CARDS));
+        this.apiV1.post('/games', createRecord(TableName.GAMES));
+        this.apiV1.get('/games/:id', getSingleRecord(TableName.GAMES));
+        this.apiV1.get('/games', getAllRecords(TableName.GAMES));
+        this.apiV1.delete('/games/:id', deleteRecord(TableName.GAMES));
+        this.apiV1.put('/games/:id', updateRecord(TableName.GAMES));
 
-app.post('/sets', createRecord(TableName.SETS));
-app.get('/sets/:id', getSingleRecord(TableName.SETS));
-app.get('/sets', getAllRecords(TableName.SETS));
-app.delete('/sets/:id', deleteRecord(TableName.SETS));
-app.put('/sets/:id', updateRecord(TableName.SETS));
+        this.apiV1.post('/featureds', createRecord(TableName.FEATUREDS));
+        this.apiV1.get('/featureds/:id', getSingleRecord(TableName.FEATUREDS));
+        this.apiV1.get('/featureds', getAllRecords(TableName.FEATUREDS));
+        this.apiV1.delete('/featureds/:id', deleteRecord(TableName.FEATUREDS));
+        this.apiV1.put('/featureds/:id', updateRecord(TableName.FEATUREDS));
 
-app.post('/varieties', createRecord(TableName.VARIETIES));
-app.get('/varieties/:id', getSingleRecord(TableName.VARIETIES));
-app.get('/varieties', getAllRecords(TableName.VARIETIES));
-app.delete('/varieties/:id', deleteRecord(TableName.VARIETIES));
-app.put('/varieties/:id', updateRecord(TableName.VARIETIES));
+        this.apiV1.post('/teams', createRecord(TableName.TEAMS));
+        this.apiV1.get('/teams/:id', getSingleRecord(TableName.TEAMS));
+        this.apiV1.get('/teams', getAllRecords(TableName.TEAMS));
+        this.apiV1.delete('/teams/:id', deleteRecord(TableName.TEAMS));
+        this.apiV1.put('/teams/:id', updateRecord(TableName.TEAMS));
 
-app.post('/featureds_multi', createRecord(TableName.FEATUREDS_MULTI));
-app.get('/featureds_multi/:id', getSingleRecord(TableName.FEATUREDS_MULTI));
-app.get('/featureds_multi', getAllRecords(TableName.FEATUREDS_MULTI));
-app.delete('/featureds_multi/:id', deleteRecord(TableName.FEATUREDS_MULTI));
-app.put('/featureds_multi/:id', updateRecord(TableName.FEATUREDS_MULTI));
+        this.apiV1.post('/cards', createRecord(TableName.CARDS));
+        this.apiV1.get('/cards/:id', getSingleRecord(TableName.CARDS));
+        this.apiV1.get('/cards', getAllRecords(TableName.CARDS));
+        this.apiV1.delete('/cards/:id', deleteRecord(TableName.CARDS));
+        this.apiV1.put('/cards/:id', updateRecord(TableName.CARDS));
 
+        this.apiV1.post('/sets', createRecord(TableName.SETS));
+        this.apiV1.get('/sets/:id', getSingleRecord(TableName.SETS));
+        this.apiV1.get('/sets', getAllRecords(TableName.SETS));
+        this.apiV1.delete('/sets/:id', deleteRecord(TableName.SETS));
+        this.apiV1.put('/sets/:id', updateRecord(TableName.SETS));
 
+        this.apiV1.post('/varieties', createRecord(TableName.VARIETIES));
+        this.apiV1.get('/varieties/:id', getSingleRecord(TableName.VARIETIES));
+        this.apiV1.get('/varieties', getAllRecords(TableName.VARIETIES));
+        this.apiV1.delete('/varieties/:id', deleteRecord(TableName.VARIETIES));
+        this.apiV1.put('/varieties/:id', updateRecord(TableName.VARIETIES));
 
+        this.apiV1.post('/featureds_multi', createRecord(TableName.FEATUREDS_MULTI));
+        this.apiV1.get('/featureds_multi/:id', getSingleRecord(TableName.FEATUREDS_MULTI));
+        this.apiV1.get('/featureds_multi', getAllRecords(TableName.FEATUREDS_MULTI));
+        this.apiV1.delete('/featureds_multi/:id', deleteRecord(TableName.FEATUREDS_MULTI));
+        this.apiV1.put('/featureds_multi/:id', updateRecord(TableName.FEATUREDS_MULTI));
+        
+    }
+  
+}
 
-
-
-
-
-
-
-app.listen(3000, () =>{
-    console.log(TableName.USERS);
-})
+export default new Server();
 
 
 
