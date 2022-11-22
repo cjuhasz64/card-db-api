@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import database from './database.js';
+import crypto from './crypto.js';
 
 export const createRecord = (tableName) => {
     return async (req, res, next) => {
@@ -100,3 +101,9 @@ export const updateRecord = (tableName) => {
         }
     }
 }
+
+
+
+
+
+
