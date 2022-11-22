@@ -2,7 +2,6 @@ import { v4 } from 'uuid';
 import database from '../database.js';
 import crypto from '../crypto.js';
 
-
 try {
     const id = v4();
     const password_hash = await crypto.hashPassword('password');

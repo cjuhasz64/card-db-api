@@ -8,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 
+
 app.post('/users', createRecord(TableName.USERS));
 app.get('/users/:id', getSingleRecord(TableName.USERS));
 app.get('/users', getAllRecords(TableName.USERS));
