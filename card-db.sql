@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `cards` (
   `id` varchar(40) NOT NULL,
   `code` varchar(20) DEFAULT NULL,
-  `featured_id` varchar(40) DEFAULT NULL,
+  `features_id` varchar(40) DEFAULT NULL,
   `grade` varchar(10) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp(),
@@ -41,10 +41,10 @@ CREATE TABLE `cards` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `featureds`
+-- Table structure for table `features`
 --
 
-CREATE TABLE `featureds` (
+CREATE TABLE `features` (
   `id` varchar(40) NOT NULL,
   `name` varchar(255) NOT NULL,
   `team_id` varchar(40) NOT NULL,
@@ -55,13 +55,13 @@ CREATE TABLE `featureds` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `featureds_multi`
+-- Table structure for table `features_multi`
 --
 
-CREATE TABLE `featureds_multi` (
+CREATE TABLE `features_multi` (
   `id` varchar(40) NOT NULL,
   `card_id` varchar(40) NOT NULL,
-  `featured_id` varchar(40) NOT NULL,
+  `features_id` varchar(40) NOT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp(),
   `update_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -131,23 +131,23 @@ CREATE TABLE `varieties` (
 --
 ALTER TABLE `cards`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `featured_id` (`featured_id`),
+  ADD KEY `features_id` (`features_id`),
   ADD KEY `variety_id` (`variety_id`);
 
 --
--- Indexes for table `featureds`
+-- Indexes for table `features`
 --
-ALTER TABLE `featureds`
+ALTER TABLE `features`
   ADD PRIMARY KEY (`id`),
   ADD KEY `team_id` (`team_id`);
 
 --
--- Indexes for table `featureds_multi`
+-- Indexes for table `features_multi`
 --
-ALTER TABLE `featureds_multi`
+ALTER TABLE `features_multi`
   ADD PRIMARY KEY (`id`),
   ADD KEY `card_id` (`card_id`),
-  ADD KEY `featured_id` (`featured_id`);
+  ADD KEY `features_id` (`features_id`);
 
 --
 -- Indexes for table `games`
@@ -185,14 +185,14 @@ ALTER TABLE `varieties`
 --
 ALTER TABLE `cards`
   ADD CONSTRAINT `cards_ibfk_1` FOREIGN KEY (`variety_id`) REFERENCES `varieties` (`id`),
-  ADD CONSTRAINT `cards_ibfk_2` FOREIGN KEY (`featured_id`) REFERENCES `featureds` (`id`);
+  ADD CONSTRAINT `cards_ibfk_2` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`);
 
 --
--- Constraints for table `featureds_multi`
+-- Constraints for table `features_multi`
 --
-ALTER TABLE `featureds_multi`
-  ADD CONSTRAINT `featureds_multi_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `cards` (`id`),
-  ADD CONSTRAINT `featureds_multi_ibfk_2` FOREIGN KEY (`featured_id`) REFERENCES `featureds` (`id`);
+ALTER TABLE `features_multi`
+  ADD CONSTRAINT `features_multi_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `cards` (`id`),
+  ADD CONSTRAINT `features_multi_ibfk_2` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`);
 
 --
 -- Constraints for table `sets`

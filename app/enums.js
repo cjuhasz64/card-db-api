@@ -1,8 +1,8 @@
 export const TableName = {
     USERS: "users",
     CARDS: "cards",
-    FEATUREDS: "featureds",
-    FEATUREDS_MULTI: "featureds_multi",
+    FEATURES: "features",
+    FEATURES_MULTI: "features_multi",
     GAMES: "games",
     SETS: "sets",
     TEAMS: "teams",

@@ -85,6 +85,7 @@ export const deleteRecord = (tableName) => {
 }
 
 export const updateRecord = (tableName) => {
+    console.log("Dwdwdwdw")
     return async (req, res, next) => {
         try {
             await database.knex(tableName)
