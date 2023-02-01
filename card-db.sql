@@ -27,16 +27,21 @@ SET time_zone = "+00:00";
 -- Table structure for table `cards`
 --
 
+
 CREATE TABLE `cards` (
   `id` varchar(40) NOT NULL,
-  `code` varchar(20) DEFAULT NULL,
-  `features_id` varchar(40) DEFAULT NULL,
-  `grade` varchar(10) DEFAULT NULL,
-  `quantity` int(11) NOT NULL,
+  `code` varchar(20) NOT NULL,
+  `features_count` varchar(40) NOT NULL,
+  `grade` varchar(10) NOT NULL,
+  `quantity` varchar(10) NOT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp(),
   `update_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `variety_id` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `variety_id` varchar(40) NOT NULL,
+  `rookie` varchar(1) NOT NULL,
+  `patch` varchar(1) NOT NULL,
+  `autograph` varchar(1) NOT NULL,
+  `numberedTo` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -58,13 +63,13 @@ CREATE TABLE `features` (
 -- Table structure for table `features_multi`
 --
 
-CREATE TABLE `features_multi` (
+CREATE TABLE `features_link` (
   `id` varchar(40) NOT NULL,
   `card_id` varchar(40) NOT NULL,
   `features_id` varchar(40) NOT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp(),
   `update_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -77,7 +82,7 @@ CREATE TABLE `games` (
   `name` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -92,7 +97,7 @@ CREATE TABLE `sets` (
   `year` varchar(4) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;
 
 -- --------------------------------------------------------
 
@@ -120,7 +125,7 @@ CREATE TABLE `varieties` (
   `set_id` varchar(40) NOT NULL,
   `create_date` datetime NOT NULL DEFAULT current_timestamp(),
   `update_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;
 
 --
 -- Indexes for dumped tables
@@ -131,7 +136,6 @@ CREATE TABLE `varieties` (
 --
 ALTER TABLE `cards`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `features_id` (`features_id`),
   ADD KEY `variety_id` (`variety_id`);
 
 --
@@ -144,7 +148,7 @@ ALTER TABLE `features`
 --
 -- Indexes for table `features_multi`
 --
-ALTER TABLE `features_multi`
+ALTER TABLE `features_link`
   ADD PRIMARY KEY (`id`),
   ADD KEY `card_id` (`card_id`),
   ADD KEY `features_id` (`features_id`);
@@ -184,13 +188,12 @@ ALTER TABLE `varieties`
 -- Constraints for table `cards`
 --
 ALTER TABLE `cards`
-  ADD CONSTRAINT `cards_ibfk_1` FOREIGN KEY (`variety_id`) REFERENCES `varieties` (`id`),
-  ADD CONSTRAINT `cards_ibfk_2` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`);
+  ADD CONSTRAINT `cards_ibfk_1` FOREIGN KEY (`variety_id`) REFERENCES `varieties` (`id`);
 
 --
 -- Constraints for table `features_multi`
 --
-ALTER TABLE `features_multi`
+ALTER TABLE `features_link`
   ADD CONSTRAINT `features_multi_ibfk_1` FOREIGN KEY (`card_id`) REFERENCES `cards` (`id`),
   ADD CONSTRAINT `features_multi_ibfk_2` FOREIGN KEY (`features_id`) REFERENCES `features` (`id`);
 

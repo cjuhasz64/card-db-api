@@ -7,7 +7,7 @@ export class Database {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'card_db',
+      database: 'card-db',
       port: '3306',
     }
   });

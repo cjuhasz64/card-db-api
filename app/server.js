@@ -63,12 +63,12 @@ class Server {
         this.apiV1.get('/varieties', getAllRecords(TableName.VARIETIES));
         this.apiV1.delete('/varieties/:id', deleteRecord(TableName.VARIETIES));
         this.apiV1.put('/varieties/:id', updateRecord(TableName.VARIETIES));
-
-        this.apiV1.post('/features_multi', createRecord(TableName.FEATURES_MULTI));
-        this.apiV1.get('/features_multi/:id', getSingleRecord(TableName.FEATURES_MULTI));
-        this.apiV1.get('/features_multi', getAllRecords(TableName.FEATURES_MULTI));
-        this.apiV1.delete('/features_multi/:id', deleteRecord(TableName.FEATURES_MULTI));
-        this.apiV1.put('/features_multi/:id', updateRecord(TableName.FEATURES_MULTI));   
+        
+        this.apiV1.post('/features_link', createRecord(TableName.FEATURES_LINK));
+        this.apiV1.get('/features_link/:id', getSingleRecord(TableName.FEATURES_LINK));
+        this.apiV1.get('/features_link', getAllRecords(TableName.FEATURES_LINK));
+        this.apiV1.delete('/features_link/:id', deleteRecord(TableName.FEATURES_LINK));
+        this.apiV1.put('/features_link/:id', updateRecord(TableName.FEATURES_LINK));   
     }
 }
 

@@ -2,7 +2,7 @@ export const TableName = {
     USERS: "users",
     CARDS: "cards",
     FEATURES: "features",
-    FEATURES_MULTI: "features_multi",
+    FEATURES_LINK: "features_link",
     GAMES: "games",
     SETS: "sets",
     TEAMS: "teams",
